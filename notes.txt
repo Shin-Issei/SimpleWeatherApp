@@ -1,0 +1,5 @@
+Wed July 20th: What's next? 
+
+[] Create dom nodes place holders
+[] complete displayfn()s and place them in DOMDisplayfn()
+[] Create styleSheet
