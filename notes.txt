@@ -3,3 +3,7 @@ Wed July 20th: What's next?
 [] Create dom nodes place holders
 [] complete displayfn()s and place them in DOMDisplayfn()
 [] Create styleSheet
+
+Monday July 25th:
+
+Not having everything at least partially settled on in terms of the what and how is seriously slowing down my progress. At this point there shouldn't be anymore decisions to be made about how this thing is going to work. Just how it's going to look and a few implementation details. But how its going to work is only half way laid out. Its only been like 30 mins and I am already begging for a break.
