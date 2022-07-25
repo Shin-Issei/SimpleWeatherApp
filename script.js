@@ -1,6 +1,9 @@
 let DOMdata;
 let F_or_C = true; // true means it converts to farenhieight
 const tempDisplay = document.querySelector("#temprature-display");
+const locationDisplay = document.querySelector("#location-display");
+const currentConditions = document.querySelector("#current-conditions");
+const windSpd = document.querySelector("#wind-speed");
 
 // I can get the data using this but for now just use JUNKDATA as a 'return value'
 async function getWeatherData(url) {
@@ -23,7 +26,10 @@ function createDOMDataObject(args) {
 
 function DOMDataDisplay(dataObject) {
   // argument will be DomData from previous .then()
+  locationDisplay.textContent = dataObject.name
   tempDisplay.textContent = displayTemp(dataObject);
+  currentConditions.textContent = displayCurrentConditions(dataObject);
+  windSpd.textContent = displayWindSpeed(dataObject)
 }
 
 function displayTemp(wd) { // wd means weather data. It's shorter
@@ -36,9 +42,13 @@ function displayTemp(wd) { // wd means weather data. It's shorter
   return `${Math.round(tempFahrenheit)}\u00b0F`;
 }
 
-function displayCurrentConditions() {}
+function displayCurrentConditions(wd) {
+  return wd.currentConditions;
+}
 
-function displayWindSpeed() {}
+function displayWindSpeed(wd) {
+  return wd.wind;
+}
 
 getWeatherData(
   "https://api.openweathermap.org/data/2.5/weather?zip=06053&appid=a630f28475b650382bb96ea713e55d1d"
