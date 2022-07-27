@@ -4,6 +4,8 @@ const tempDisplay = document.querySelector("#temprature-display");
 const locationDisplay = document.querySelector("#location-display");
 const currentConditions = document.querySelector("#current-conditions");
 const windSpd = document.querySelector("#wind-speed");
+const locationRequest = document.querySelector("#location-search");
+const searchSubmit = document.querySelector("#location-search-submit");
 
 // I can get the data using this but for now just use JUNKDATA as a 'return value'
 async function getWeatherData(url) {
@@ -49,15 +51,18 @@ function displayCurrentConditions(wd) {
 function displayWindSpeed(wd) {
   return wd.wind;
 }
+searchSubmit.addEventListener("click", () =>{
+  getWeatherData(
+    `https://api.openweathermap.org/data/2.5/weather?zip=${locationRequest.value}&appid=a630f28475b650382bb96ea713e55d1d`
+  )
+    .then((data) => {
+      DOMdata = new createDOMDataObject(data);
+      console.log(data);
+    })
+    .then(() => {
+      DOMDataDisplay(DOMdata);
+      console.table(DOMdata);
+    });
+})
 
-getWeatherData(
-  "https://api.openweathermap.org/data/2.5/weather?zip=06053&appid=a630f28475b650382bb96ea713e55d1d"
-)
-  .then((data) => {
-    DOMdata = new createDOMDataObject(data);
-    console.log(data);
-  })
-  .then(() => {
-    DOMDataDisplay(DOMdata);
-    console.table(DOMdata);
-  });
+
