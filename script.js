@@ -6,9 +6,22 @@ const windSpd = document.querySelector("#wind-speed");
 const locationRequest = document.querySelector("#location-search");
 const searchSubmit = document.querySelector("#location-search-submit");
 
-// I can get the data using this but for now just use JUNKDATA as a 'return value'
-async function getWeatherData(url) {
-  const response = await fetch(url);
+
+async function getWeatherData(queryValue) {
+
+  let response;
+  
+  if(isNaN(queryValue * 2)){
+    response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${queryValue}&appid=a630f28475b650382bb96ea713e55d1d`)
+  } 
+
+  else{
+    response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${queryValue}&appid=a630f28475b650382bb96ea713e55d1d`);
+  }
+
+
+
+
   const weatherData = await response.json();
   console.log(weatherData);
   if (weatherData.cod === "400"){
@@ -57,9 +70,7 @@ function displayWindSpeed(wd) {
 
 
 searchSubmit.addEventListener("click", () =>{
-  getWeatherData(
-    `https://api.openweathermap.org/data/2.5/weather?zip=${locationRequest.value}&appid=a630f28475b650382bb96ea713e55d1d`
-  )
+  getWeatherData(locationRequest.value)
     .then((data) => {
       DOMdata = new createDOMDataObject(data);
       console.log(data);
