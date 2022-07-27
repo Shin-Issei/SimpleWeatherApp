@@ -1,5 +1,4 @@
 let DOMdata;
-let F_or_C = true; // true means it converts to farenhieight
 const tempDisplay = document.querySelector("#temprature-display");
 const locationDisplay = document.querySelector("#location-display");
 const currentConditions = document.querySelector("#current-conditions");
@@ -13,7 +12,12 @@ async function getWeatherData(url) {
   const weatherData = await response.json();
   console.log(weatherData);
   if (weatherData.cod === "400"){
-    alert(weatherData.message)
+    // alert(weatherData.message)
+    locationDisplay.textContent = weatherData.message
+  }
+  if (weatherData.cod === "404"){
+    // alert(weatherData.message)
+    locationDisplay.textContent = weatherData.message
   }
   return weatherData;
 }
@@ -37,23 +41,21 @@ function DOMDataDisplay(dataObject) {
   windSpd.textContent = displayWindSpeed(dataObject)
 }
 
-function displayTemp(wd) { // wd means weather data. It's shorter
-  // handle user preference for conversion Fahrenheit or Celsius
+function displayTemp(wd) { // wd means weather data. It's shorter.
   let tempFahrenheit = ((wd.temp - 273.15) * 9) / 5 + 32;
-  let tempCelsius = wd.temp - 273.15;
-  if (F_or_C === false) {
-    return `${Math.round(tempCelsius)}\u00b0C`;
-  }
-  return `${Math.round(tempFahrenheit)}\u00b0F`;
+  return `Temperature ${Math.round(tempFahrenheit)}\u00b0F`;
 }
 
 function displayCurrentConditions(wd) {
-  return wd.currentConditions;
+  return `Conditions Outside: ${wd.currentConditions}`;
 }
 
 function displayWindSpeed(wd) {
-  return wd.wind;
+  return `Wind: ${wd.wind} MPH`;
 }
+
+
+
 searchSubmit.addEventListener("click", () =>{
   getWeatherData(
     `https://api.openweathermap.org/data/2.5/weather?zip=${locationRequest.value}&appid=a630f28475b650382bb96ea713e55d1d`
