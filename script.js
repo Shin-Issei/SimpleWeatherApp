@@ -12,6 +12,9 @@ async function getWeatherData(url) {
   const response = await fetch(url);
   const weatherData = await response.json();
   console.log(weatherData);
+  if (weatherData.cod === "400"){
+    alert(weatherData.message)
+  }
   return weatherData;
 }
 
