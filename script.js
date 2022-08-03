@@ -5,6 +5,8 @@ const currentConditions = document.querySelector("#current-conditions");
 const windSpd = document.querySelector("#wind-speed");
 const locationRequest = document.querySelector("#location-search");
 const searchSubmit = document.querySelector("#location-search-submit");
+const unitSwitch = document.querySelector("#unitSwitch");
+let selectMetricUnits = false;
 
 
 async function getWeatherData(queryValue) {
@@ -46,15 +48,19 @@ function createDOMDataObject(args) {
 
 // displayFns() are called in DOMDataDisplay().
 
-function DOMDataDisplay(dataObject) {
-  // argument will be DomData from previous .then()
+  function DOMDataDisplay(dataObject,) {
+  
   locationDisplay.textContent = dataObject.name
-  tempDisplay.textContent = displayTemp(dataObject);
+  tempDisplay.textContent = displayTemp(dataObject, selectMetricUnits);
   currentConditions.textContent = displayCurrentConditions(dataObject);
-  windSpd.textContent = displayWindSpeed(dataObject)
+  windSpd.textContent = displayWindSpeed(dataObject, selectMetricUnits)
 }
 
-function displayTemp(wd) { // wd means weather data. It's shorter.
+function displayTemp(wd, metric) { // wd means weather data. It's shorter.
+  if(metric){
+    let tempCelcius = (wd.temp - 273.15)
+    return `Temperature ${Math.round(tempCelcius)}\u00b0C`;
+  }
   let tempFahrenheit = ((wd.temp - 273.15) * 9) / 5 + 32;
   return `Temperature ${Math.round(tempFahrenheit)}\u00b0F`;
 }
@@ -63,8 +69,11 @@ function displayCurrentConditions(wd) {
   return `Conditions Outside: ${wd.currentConditions}`;
 }
 
-function displayWindSpeed(wd) {
-  return `Wind: ${wd.wind} MPH`;
+function displayWindSpeed(wd, metric) {
+  if(metric){
+    return `Wind: ${Math.round(wd.wind * 1.609)} KPH`
+  }
+  return `Wind: ${Math.round(wd.wind)} MPH`;
 }
 
 
@@ -79,6 +88,16 @@ searchSubmit.addEventListener("click", () =>{
       DOMDataDisplay(DOMdata);
       console.table(DOMdata);
     });
+});
+
+unitSwitch.addEventListener("click", ()=>{
+  if (selectMetricUnits === false){
+    selectMetricUnits = true;
+  }
+  else{
+    selectMetricUnits = false;
+  }
+  DOMDataDisplay(DOMdata);
 })
 
 
