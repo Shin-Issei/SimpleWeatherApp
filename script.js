@@ -27,8 +27,7 @@ async function getWeatherData(queryValue) {
   const weatherData = await response.json();
   console.log(weatherData);
   if (weatherData.cod === "400"){
-    // alert(weatherData.message)
-    locationDisplay.textContent = weatherData.message
+    locationDisplay.textContent = weatherData.message;
   }
   if (weatherData.cod === "404"){
     // alert(weatherData.message)
@@ -76,9 +75,18 @@ function displayWindSpeed(wd, metric) {
   return `Wind: ${Math.round(wd.wind)} MPH`;
 }
 
+function clearCurrentData(){
+  locationDisplay.textContent = null;
+    tempDisplay.textContent = null
+    currentConditions.textContent = null;
+    windSpd.textContent = null;
+}
+
 
 
 searchSubmit.addEventListener("click", () =>{
+  clearCurrentData();
+  
   getWeatherData(locationRequest.value)
     .then((data) => {
       DOMdata = new createDOMDataObject(data);

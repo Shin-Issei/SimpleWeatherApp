@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simple Weather</title>
     <script src="/script.js" defer></script>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <!-- For now, lets just list out all the info without worrying about looking pretty -->
-    <div id="search-form">
-    Please enter zip code or city name: 
-    <input type="search" name="getZIP" id="location-search">
-    <button id="location-search-submit"> Get Weather</button>
-    <div class="" id="location-display">[Search for a location to get weather information]</div>  
-</div>
-<div id="info-grid">
-
-        <div class="" id="temprature-display">Temperature:
+    
+    <div class="main-app-wrapper">
+        <h2 id="main-app-header">Simple Weather App</h2>
+        <div id="search-form">
+        Please enter zip code or city name:
+        <input type="search" name="getZIP" id="location-search">
+        <button id="location-search-submit"> Get Weather</button>
+        <div class="" id="location-display">[Search for a location to get weather information]</div>  
         </div>
-        <div class="" id="current-conditions">Conditions Outside:</div>
-        <div class="" id="wind-speed">Wind:</div>
-
-</div>
-<button id="unitSwitch">Switch Units</button>
+        
+        <div class="grid-flex-wrapper">
+        <div id="info-grid">
+                <div class="" id="temprature-display">Temperature:
+                </div>
+                <div class="" id="current-conditions">Conditions Outside:</div>
+                <div class="" id="wind-speed">Wind:</div>
+                <button id="unitSwitch">Switch Units</button>
+        
+        </div>
+        </div>
+    </div>
 </body>
 </html>
